@@ -32,10 +32,34 @@ const BaseButton = styled.button`
   }
 `
 
-export const CartButton = styled(BaseButton)`
+interface CartButtonProps {
+  itemsQuantity: number
+}
+
+export const CartButton = styled(BaseButton) <CartButtonProps>`
   background: ${({ theme }) => theme['yellow-100']};
   color: ${({ theme }) => theme['yellow-700']};
   font-size: 1.4rem;
+  position: relative;
+
+  &::after {
+    content: '${({ itemsQuantity }) => itemsQuantity}';
+    position: absolute;
+    top: calc(1rem - 2rem);
+    right: calc(1rem - 2rem);
+    width: 2rem;
+    height: 2rem;
+    background: ${({ theme }) => theme['yellow-700']};
+    color: ${({ theme }) => theme.white};
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 50%;
+    line-height: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `
 
 export const LocationButton = styled(BaseButton)`

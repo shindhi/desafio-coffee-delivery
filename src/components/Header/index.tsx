@@ -10,6 +10,8 @@ import {
 } from './styled'
 
 export function Header() {
+  const itensCart = 3
+
   return (
     <HeaderContainer>
       <img src={logoCoffeeDelivery} alt="Logo Coffee Delivery" />
@@ -20,7 +22,7 @@ export function Header() {
           Jaboticabal, SP
         </LocationButton>
 
-        <CartButton>
+        <CartButton itemsQuantity={itensCart}>
           <ShoppingCart weight="fill" />
         </CartButton>
       </ActionsWrapper>
