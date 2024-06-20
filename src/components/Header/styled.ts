@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const HeaderContainer = styled.header`
   width: 100%;
-  padding: 3.2rem 16rem;
+  padding: 3.2rem 0;
 
   display: flex;
   justify-content: space-between;
@@ -36,7 +36,7 @@ interface CartButtonProps {
   itemsQuantity: number
 }
 
-export const CartButton = styled(BaseButton) <CartButtonProps>`
+export const CartButton = styled(BaseButton)<CartButtonProps>`
   background: ${({ theme }) => theme['yellow-100']};
   color: ${({ theme }) => theme['yellow-700']};
   font-size: 1.4rem;
