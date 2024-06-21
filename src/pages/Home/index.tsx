@@ -12,6 +12,7 @@ import {
   BannerItems,
   BgBanner,
   ListCoffeeContainer,
+  ListItens,
 } from './styles'
 
 export function Home() {
@@ -56,11 +57,11 @@ export function Home() {
       <ListCoffeeContainer>
         <h2>Nossos cafés</h2>
 
-        <div>
+        <ListItens>
           {coffees.map((coffee: CoffeeProps) => {
             return <Card key={coffee.id} coffee={coffee} />
           })}
-        </div>
+        </ListItens>
       </ListCoffeeContainer>
     </>
   )

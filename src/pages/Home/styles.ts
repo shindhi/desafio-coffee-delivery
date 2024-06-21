@@ -45,4 +45,13 @@ export const BannerItems = styled.div`
   row-gap: 2rem;
 `
 
-export const ListCoffeeContainer = styled.div``
+export const ListCoffeeContainer = styled.div`
+  padding-top: 3.2rem;
+  padding-bottom: 15.7rem;
+`
+
+export const ListItens = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: 4rem;
+`
