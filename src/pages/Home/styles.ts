@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-import bgBanner from '../../assets/banner.png'
-
 export const BannerContainer = styled.div`
   padding: 9.2rem 0;
 
@@ -9,18 +7,17 @@ export const BannerContainer = styled.div`
   flex-direction: row;
   align-items: center;
   column-gap: 5.6rem;
+`
 
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url(${bgBanner});
-    background-size: cover;
-    background-repeat: no-repeat;
-    z-index: -1;
-  }
+export const BgBanner = styled.img`
+  width: 100vw;
+  height: 100%;
+  max-height: 55.4rem;
+  object-fit: cover;
+
+  position: absolute;
+  top: 9.2rem;
+  left: 0;
 `
 
 export const BannerContent = styled.div`
@@ -47,3 +44,5 @@ export const BannerItems = styled.div`
   grid-template-rows: repeat(2, 1fr);
   row-gap: 2rem;
 `
+
+export const ListCoffeeContainer = styled.div``

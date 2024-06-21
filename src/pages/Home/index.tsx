@@ -1,8 +1,16 @@
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
 
 import imgCafe from '../../assets/imagem-cafe.png'
-import { BannerContainer, BannerContent, BannerItems } from './styles'
+import {
+  BannerContainer,
+  BannerContent,
+  BannerItems,
+  BgBanner,
+  ListCoffeeContainer,
+} from './styles'
 import { BannerItem } from './BannerItem'
+
+import banner from '../../assets/banner.svg'
 
 export function Home() {
   return (
@@ -40,8 +48,14 @@ export function Home() {
         </BannerContent>
 
         <img src={imgCafe} alt="" />
+        <BgBanner src={banner} />
       </BannerContainer>
-      <div>corpo</div>
+
+      <ListCoffeeContainer>
+        <h2>Nossos cafés</h2>
+
+        <div></div>
+      </ListCoffeeContainer>
     </>
   )
 }
