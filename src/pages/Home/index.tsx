@@ -1,6 +1,11 @@
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
 
 import imgCafe from '../../assets/imagem-cafe.png'
+import banner from '../../assets/banner.svg'
+import { coffees } from '../../../data.json'
+import { BannerItem } from './components/BannerItem'
+import { Card, CoffeeProps } from './components/Card'
+
 import {
   BannerContainer,
   BannerContent,
@@ -8,9 +13,6 @@ import {
   BgBanner,
   ListCoffeeContainer,
 } from './styles'
-import { BannerItem } from './BannerItem'
-
-import banner from '../../assets/banner.svg'
 
 export function Home() {
   return (
@@ -54,7 +56,11 @@ export function Home() {
       <ListCoffeeContainer>
         <h2>Nossos cafés</h2>
 
-        <div></div>
+        <div>
+          {coffees.map((coffee: CoffeeProps) => {
+            return <Card key={coffee.id} coffee={coffee} />
+          })}
+        </div>
       </ListCoffeeContainer>
     </>
   )
