@@ -22,7 +22,7 @@ export function Header() {
           Jaboticabal, SP
         </LocationButton>
 
-        <CartButton itemsQuantity={itensCart}>
+        <CartButton itemsquantity={itensCart}>
           <ShoppingCart weight="fill" />
         </CartButton>
       </ActionsWrapper>

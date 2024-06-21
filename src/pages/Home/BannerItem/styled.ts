@@ -8,7 +8,7 @@ const BG_ICON: { [key: string]: string } = {
 } as const
 
 interface ItemContainerProps {
-  bgIcon: keyof typeof BG_ICON
+  bgicon: keyof typeof BG_ICON
 }
 
 export const ItemContainer = styled.div<ItemContainerProps>`
@@ -17,7 +17,7 @@ export const ItemContainer = styled.div<ItemContainerProps>`
   align-items: center;
 
   span {
-    background: ${({ theme, bgIcon }) => theme[BG_ICON[bgIcon]]};
+    background: ${({ theme, bgicon }) => theme[BG_ICON[bgicon]]};
     border-radius: 50%;
     padding: 0.8rem;
     line-height: 0;

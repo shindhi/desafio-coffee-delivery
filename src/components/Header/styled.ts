@@ -1,3 +1,4 @@
+import { ButtonHTMLAttributes } from 'react'
 import styled from 'styled-components'
 
 export const HeaderContainer = styled.header`
@@ -32,8 +33,8 @@ const BaseButton = styled.button`
   }
 `
 
-interface CartButtonProps {
-  itemsQuantity: number
+interface CartButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  itemsquantity: number
 }
 
 export const CartButton = styled(BaseButton)<CartButtonProps>`
@@ -43,7 +44,7 @@ export const CartButton = styled(BaseButton)<CartButtonProps>`
   position: relative;
 
   &::after {
-    content: '${({ itemsQuantity }) => itemsQuantity}';
+    content: '${({ itemsquantity }) => itemsquantity}';
     position: absolute;
     top: calc(1rem - 2rem);
     right: calc(1rem - 2rem);

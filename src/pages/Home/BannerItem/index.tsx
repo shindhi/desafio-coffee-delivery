@@ -15,7 +15,7 @@ export function BannerItem({
   bgIcon = 'base-300',
 }: BannerItemProps) {
   return (
-    <ItemContainer bgIcon={bgIcon}>
+    <ItemContainer bgicon={bgIcon}>
       <span>
         <Icon weight="fill" />
       </span>
