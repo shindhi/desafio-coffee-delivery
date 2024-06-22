@@ -1,4 +1,5 @@
-import { ButtonHTMLAttributes } from 'react'
+import { LinkHTMLAttributes } from 'react'
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const HeaderContainer = styled.header`
@@ -15,12 +16,58 @@ export const ActionsWrapper = styled.div`
   gap: 1.2rem;
 `
 
-const BaseButton = styled.button`
-  background: transparent;
+interface CartLinkProps extends LinkHTMLAttributes<HTMLLinkElement> {
+  itemsquantity: number
+}
+
+export const CartLink = styled(NavLink)<CartLinkProps>`
+  text-decoration: none;
+  background: ${({ theme }) => theme['yellow-100']};
+  color: ${({ theme }) => theme['yellow-700']};
+  line-height: 0;
+  padding: 0.8rem;
+  border-radius: 6px;
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ${({ itemsquantity, theme }) =>
+    itemsquantity > 0 &&
+    `
+  &::after {
+    content: '${itemsquantity}';
+    position: absolute;
+    top: calc(1rem - 2rem);
+    right: calc(1rem - 2rem);
+    width: 2rem;
+    height: 2rem;
+    background: ${theme['yellow-700']};
+    color: ${theme.white};
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 50%;
+    line-height: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  `}
+
+  > svg {
+    font-size: 2.2rem;
+  }
+`
+
+export const LocationButton = styled.button`
+  background: ${({ theme }) => theme['purple-100']};
+  color: ${({ theme }) => theme['purple-700']};
   border: none;
   line-height: 0;
   padding: 0.8rem;
-  border-radius: 0.6rem;
+  border-radius: 6px;
 
   display: flex;
   align-items: center;
@@ -31,39 +78,4 @@ const BaseButton = styled.button`
   svg {
     font-size: 2.2rem;
   }
-`
-
-interface CartButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  itemsquantity: number
-}
-
-export const CartButton = styled(BaseButton)<CartButtonProps>`
-  background: ${({ theme }) => theme['yellow-100']};
-  color: ${({ theme }) => theme['yellow-700']};
-  font-size: 1.4rem;
-  position: relative;
-
-  &::after {
-    content: '${({ itemsquantity }) => itemsquantity}';
-    position: absolute;
-    top: calc(1rem - 2rem);
-    right: calc(1rem - 2rem);
-    width: 2rem;
-    height: 2rem;
-    background: ${({ theme }) => theme['yellow-700']};
-    color: ${({ theme }) => theme.white};
-    font-size: 1.2rem;
-    font-weight: 700;
-    border-radius: 50%;
-    line-height: 0;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-`
-
-export const LocationButton = styled(BaseButton)`
-  background: ${({ theme }) => theme['purple-100']};
-  color: ${({ theme }) => theme['purple-700']};
 `
