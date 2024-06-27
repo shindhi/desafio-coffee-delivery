@@ -7,10 +7,20 @@ export const CheckoutContainer = styled.div`
   flex-direction: row;
 `
 
-export const Title = styled.h2`
+export const TitleSection = styled.h2`
   color: ${({ theme }) => theme['base-200']};
   font-size: 1.8rem;
   font-family: 'Baloo 2', cursive;
+`
+
+export const CardContainer = styled.div`
+  background: ${({ theme }) => theme['base-800']};
+  border-radius: 0.8rem;
+  margin-top: 1.5rem;
+  padding: 4rem;
+
+  display: grid;
+  gap: 1.5rem;
 `
 
 export const CoffeeInput = styled.input`
@@ -93,41 +103,38 @@ export const CoffeeOrderWrapper = styled.div`
   }
 `
 
-export const HeaderCardOrder = styled.div`
-  width: 100%;
-
-  display: flex;
-  flex-direction: row;
-  gap: 0.8rem;
-
-  svg {
-    color: ${({ theme }) => theme['yellow-400']};
-    font-size: 2.2rem;
-  }
-
-  div {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-
-    span {
-      color: ${({ theme }) => theme['base-200']};
-      font-size: 1.6rem;
-      line-height: 130%;
-    }
-
-    p {
-      color: ${({ theme }) => theme['base-300']};
-      font-size: 1.4rem;
-    }
-  }
-`
-
 export const CoffeeCardWrapper = styled.div`
   form {
     display: grid;
     column-gap: 1.2rem;
     row-gap: 1.6rem;
     justify-content: start;
+  }
+`
+
+export const MethodPaymentsContainer = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  gap: 1.2rem;
+
+  button {
+    border: none;
+    background: ${({ theme }) => theme['base-600']};
+    padding: 1.6rem;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1.2rem;
+
+    cursor: pointer;
+
+    svg {
+      color: ${({ theme }) => theme[`purple-400`]};
+      font-size: 1.6rem;
+    }
   }
 `

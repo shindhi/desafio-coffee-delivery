@@ -1,29 +1,36 @@
-import { CurrencyDollar, MapPinLine } from 'phosphor-react'
+import {
+  Bank,
+  CreditCard,
+  CurrencyDollar,
+  MapPinLine,
+  Money,
+} from 'phosphor-react'
+
+import { HeaderCard } from './components/HeaderCard'
 import {
   CheckoutContainer,
   CoffeeOrderWrapper,
-  Title,
   CoffeeCardWrapper,
-  HeaderCardOrder,
   InputOptionalWrapper,
   CoffeeInput,
+  TitleSection,
+  CardContainer,
+  MethodPaymentsContainer,
 } from './styles'
 
 export function Checkout() {
   return (
     <CheckoutContainer>
       <CoffeeOrderWrapper>
-        <Title>Complete seu pedido</Title>
+        <TitleSection>Complete seu pedido</TitleSection>
 
-        <div>
-          <HeaderCardOrder>
-            <MapPinLine />
-
-            <div>
-              <span>Endereço de Entrega</span>
-              <p>Informe o endereço onde deseja receber seu pedido</p>
-            </div>
-          </HeaderCardOrder>
+        <CardContainer>
+          <HeaderCard
+            title="Endereço de Entrega"
+            description="Informe o endereço onde deseja receber seu pedido"
+            icon={MapPinLine}
+            color="yellow-700"
+          />
 
           <form action="">
             <CoffeeInput type="text" id="cep" placeholder="CEP" />
@@ -43,24 +50,35 @@ export function Checkout() {
             <CoffeeInput type="text" id="cidade" placeholder="Cidade" />
             <CoffeeInput type="text" id="uf" placeholder="UF" />
           </form>
-        </div>
+        </CardContainer>
 
-        <div>
-          <HeaderCardOrder>
-            <CurrencyDollar />
+        <CardContainer>
+          <HeaderCard
+            title="Pagamento"
+            description="O pagamento é feito na entrega. Escolha a forma que deseja pagar"
+            icon={CurrencyDollar}
+            color="purple-400"
+          />
 
-            <div>
-              <span>Pagamento</span>
-              <p>
-                O pagamento é feito na entrega. Escolha a forma que deseja pagar
-              </p>
-            </div>
-          </HeaderCardOrder>
-        </div>
+          <MethodPaymentsContainer>
+            <button>
+              <CreditCard />
+              Cartão de crédito
+            </button>
+            <button>
+              <Bank />
+              Cartão de débito
+            </button>
+            <button>
+              <Money />
+              Dinheiro
+            </button>
+          </MethodPaymentsContainer>
+        </CardContainer>
       </CoffeeOrderWrapper>
 
       <CoffeeCardWrapper>
-        <Title>Cafés selecionados</Title>
+        <TitleSection>Cafés selecionados</TitleSection>
       </CoffeeCardWrapper>
     </CheckoutContainer>
   )
