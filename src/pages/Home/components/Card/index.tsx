@@ -1,11 +1,11 @@
-import { Minus, Plus, ShoppingCart } from 'phosphor-react'
+import { ShoppingCart } from 'phosphor-react'
 
+import { ItemsCounter } from '../../../../components/ItemsCounter'
 import {
   ActionsWrapper,
   AddToCartButton,
   BuyContainer,
   CardContainer,
-  CounterContainer,
   Description,
   Price,
   Tags,
@@ -46,15 +46,8 @@ export function Card({ coffee }: CardProps) {
         </Price>
 
         <ActionsWrapper>
-          <CounterContainer>
-            <button>
-              <Minus weight="bold" />
-            </button>
-            <span>0</span>
-            <button>
-              <Plus weight="bold" />
-            </button>
-          </CounterContainer>
+          <ItemsCounter />
+
           <AddToCartButton>
             <ShoppingCart weight="fill" />
           </AddToCartButton>
