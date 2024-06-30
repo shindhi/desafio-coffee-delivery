@@ -227,11 +227,14 @@ export const SummaryOfValues = styled.div`
 export const ButtonConfirmOrder = styled.button`
   width: 100%;
   border: none;
-  background: ${({ theme }) => theme['yellow-400']};
-  color: ${({ theme }) => theme.white};
   padding: 1.2rem 0;
-  border-radius: 6px;
-  text-transform: uppercase;
+  background: ${({ theme }) => theme['yellow-400']};
   margin-top: 2.4rem;
+  border-radius: 6px;
+
+  color: ${({ theme }) => theme.white};
+  text-transform: uppercase;
   font-weight: 700;
+
+  cursor: pointer;
 `
