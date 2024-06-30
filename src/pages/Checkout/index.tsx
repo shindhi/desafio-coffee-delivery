@@ -4,8 +4,10 @@ import {
   CurrencyDollar,
   MapPinLine,
   Money,
+  Trash,
 } from 'phosphor-react'
 
+import { coffees } from '../../../data.json'
 import { HeaderCard } from './components/HeaderCard'
 import {
   CheckoutContainer,
@@ -16,7 +18,13 @@ import {
   TitleSection,
   CardContainer,
   MethodPaymentsContainer,
+  CoffeeCardInfo,
+  CoffeeCardContainer,
+  CoffeeCardDetails,
+  SummaryOfValues,
+  ButtonConfirmOrder,
 } from './styles'
+import { ItemsCounter } from '../../components/ItemsCounter'
 
 export function Checkout() {
   return (
@@ -79,6 +87,52 @@ export function Checkout() {
 
       <CoffeeCardWrapper>
         <TitleSection>Cafés selecionados</TitleSection>
+
+        <CardContainer>
+          {coffees.map((coffee) => {
+            if (coffee.id < String(2)) {
+              return (
+                <CoffeeCardContainer key={coffee.id}>
+                  <CoffeeCardInfo>
+                    <img src={coffee.image} alt="" />
+
+                    <CoffeeCardDetails>
+                      <h3>{coffee.title}</h3>
+                      <div>
+                        <ItemsCounter />
+
+                        <button>
+                          <Trash />
+                          remover
+                        </button>
+                      </div>
+                    </CoffeeCardDetails>
+                  </CoffeeCardInfo>
+
+                  <span>
+                    R${' '}
+                    {coffee.price.toString().replace('.', ',').padEnd(4, '0')}
+                  </span>
+                </CoffeeCardContainer>
+              )
+            }
+            return false
+          })}
+
+          <SummaryOfValues>
+            <div>
+              Total de itens <span>R$ 29,70</span>
+            </div>
+            <div>
+              Entrega <span>R$ 3,50</span>
+            </div>
+            <div>
+              Total<span>R$ 33,20</span>
+            </div>
+          </SummaryOfValues>
+
+          <ButtonConfirmOrder>Confirmar pedido</ButtonConfirmOrder>
+        </CardContainer>
       </CoffeeCardWrapper>
     </CheckoutContainer>
   )
