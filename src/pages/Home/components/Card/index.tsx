@@ -1,3 +1,4 @@
+import { useContext, useState } from 'react'
 import { ShoppingCart } from 'phosphor-react'
 
 import { ItemsCounter } from '../../../../components/ItemsCounter'
@@ -11,6 +12,7 @@ import {
   Tags,
   Title,
 } from './styled'
+import { CartContext } from '../../../../contexts/CartContext'
 
 export interface CoffeeProps {
   id: string
@@ -26,6 +28,30 @@ type CardProps = {
 }
 
 export function Card({ coffee }: CardProps) {
+  const { addItem } = useContext(CartContext)
+  const [quantityItems, setQuantityItems] = useState(1)
+
+  function handleAddItemToCart() {
+    const addItemToCart = {
+      id: coffee.id,
+      title: coffee.title,
+      price: coffee.price,
+      image: coffee.image,
+      quantity: quantityItems,
+    }
+
+    addItem(addItemToCart)
+    setQuantityItems(1)
+  }
+
+  function handleIncrementItem() {
+    setQuantityItems((state) => state + 1)
+  }
+
+  function handleDecrementItem() {
+    setQuantityItems((state) => state - 1)
+  }
+
   return (
     <CardContainer>
       <img src={coffee.image} alt={`Café ${coffee.title}`} />
@@ -46,9 +72,13 @@ export function Card({ coffee }: CardProps) {
         </Price>
 
         <ActionsWrapper>
-          <ItemsCounter />
+          <ItemsCounter
+            quantityItems={quantityItems}
+            incrementQuantity={handleIncrementItem}
+            decrementQuantity={handleDecrementItem}
+          />
 
-          <AddToCartButton>
+          <AddToCartButton onClick={handleAddItemToCart}>
             <ShoppingCart weight="fill" />
           </AddToCartButton>
         </ActionsWrapper>
