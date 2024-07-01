@@ -25,6 +25,10 @@ export const ItemsCounterContainer = styled.div`
     }
   }
 
+  button:disabled {
+    opacity: 0.5;
+  }
+
   > span {
     line-height: 0;
   }
