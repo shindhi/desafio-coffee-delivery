@@ -135,66 +135,6 @@ export const CoffeeCardWrapper = styled.div`
   }
 `
 
-export const CoffeeCardContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 5rem;
-  padding-bottom: 2.4rem;
-
-  > span {
-    color: ${({ theme }) => theme['base-300']};
-    font-weight: 800;
-    white-space: nowrap;
-  }
-
-  & + & {
-    border-top: 1px solid ${({ theme }) => theme['base-600']};
-    padding-top: 2.4rem;
-  }
-`
-
-export const CoffeeCardInfo = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 2rem;
-
-  img {
-    width: 6.4rem;
-    height: 6.4rem;
-  }
-`
-
-export const CoffeeCardDetails = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-
-  div {
-    display: flex;
-    flex-direction: row;
-    gap: 0.8rem;
-  }
-
-  button {
-    border: none;
-    background: ${({ theme }) => theme['base-600']};
-    line-height: 0;
-    padding: 0.8rem;
-    border-radius: 6px;
-    gap: 0.4rem;
-    text-transform: uppercase;
-
-    display: flex;
-    align-items: center;
-
-    > svg {
-      color: ${({ theme }) => theme['purple-400']};
-    }
-  }
-`
-
 export const SummaryOfValues = styled.div`
   border-top: 1px solid ${({ theme }) => theme['base-600']};
   padding-top: 2.4rem;

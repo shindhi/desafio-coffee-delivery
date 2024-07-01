@@ -4,7 +4,6 @@ import {
   CurrencyDollar,
   MapPinLine,
   Money,
-  Trash,
 } from 'phosphor-react'
 
 import { coffees } from '../../../data.json'
@@ -18,13 +17,10 @@ import {
   TitleSection,
   CardContainer,
   MethodPaymentsContainer,
-  CoffeeCardInfo,
-  CoffeeCardContainer,
-  CoffeeCardDetails,
   SummaryOfValues,
   ButtonConfirmOrder,
 } from './styles'
-import { ItemsCounter } from '../../components/ItemsCounter'
+import { CoffeeCard } from './components/CoffeeCard'
 
 export function Checkout() {
   return (
@@ -90,33 +86,7 @@ export function Checkout() {
 
         <CardContainer>
           {coffees.map((coffee) => {
-            if (coffee.id < String(2)) {
-              return (
-                <CoffeeCardContainer key={coffee.id}>
-                  <CoffeeCardInfo>
-                    <img src={coffee.image} alt="" />
-
-                    <CoffeeCardDetails>
-                      <h3>{coffee.title}</h3>
-                      <div>
-                        <ItemsCounter />
-
-                        <button>
-                          <Trash />
-                          remover
-                        </button>
-                      </div>
-                    </CoffeeCardDetails>
-                  </CoffeeCardInfo>
-
-                  <span>
-                    R${' '}
-                    {coffee.price.toString().replace('.', ',').padEnd(4, '0')}
-                  </span>
-                </CoffeeCardContainer>
-              )
-            }
-            return false
+            return <CoffeeCard key={coffee.id} coffee={coffee} />
           })}
 
           <SummaryOfValues>
