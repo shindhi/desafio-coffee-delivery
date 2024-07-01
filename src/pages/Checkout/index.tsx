@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import {
   Bank,
   CreditCard,
@@ -6,7 +7,6 @@ import {
   Money,
 } from 'phosphor-react'
 
-import { coffees } from '../../../data.json'
 import { HeaderCard } from './components/HeaderCard'
 import {
   CheckoutContainer,
@@ -22,7 +22,11 @@ import {
 } from './styles'
 import { CoffeeCard } from './components/CoffeeCard'
 
+import { CartContext } from '../../contexts/CartContext'
+
 export function Checkout() {
+  const { cart } = useContext(CartContext)
+
   return (
     <CheckoutContainer>
       <CoffeeOrderWrapper>
@@ -85,7 +89,7 @@ export function Checkout() {
         <TitleSection>Cafés selecionados</TitleSection>
 
         <CardContainer>
-          {coffees.map((coffee) => {
+          {cart.map((coffee) => {
             return <CoffeeCard key={coffee.id} coffee={coffee} />
           })}
 
