@@ -51,6 +51,8 @@ export const ListCoffeeContainer = styled.div`
 `
 
 export const ListItens = styled.div`
+  margin-top: 5.4rem;
+
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   row-gap: 4rem;
