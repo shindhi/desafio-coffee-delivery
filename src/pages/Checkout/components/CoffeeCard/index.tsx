@@ -1,18 +1,42 @@
+import { useContext } from 'react'
 import { Trash } from 'phosphor-react'
 
-import { CoffeeProps } from '../../../Home/components/Card'
 import { ItemsCounter } from '../../../../components/ItemsCounter'
 import {
   CoffeeCardContainer,
   CoffeeCardInfo,
   CoffeeCardDetails,
 } from './styles'
+import { CartContext } from '../../../../contexts/CartContext'
+
+interface CoffeeCardType {
+  id: string
+  image: string
+  title: string
+  price: number
+  quantity: number
+}
 
 type CoffeeCardProps = {
-  coffee: CoffeeProps
+  coffee: CoffeeCardType
 }
 
 export function CoffeeCard({ coffee }: CoffeeCardProps) {
+  const { incrementQuantityItem, decrementQuantityItem, removeItem } =
+    useContext(CartContext)
+
+  function handleIncrementQuantity() {
+    incrementQuantityItem(coffee.id)
+  }
+
+  function handleDecrementQuantity() {
+    decrementQuantityItem(coffee.id)
+  }
+
+  function handleRemoveItem() {
+    removeItem(coffee.id)
+  }
+
   return (
     <CoffeeCardContainer key={coffee.id}>
       <CoffeeCardInfo>
@@ -21,9 +45,13 @@ export function CoffeeCard({ coffee }: CoffeeCardProps) {
         <CoffeeCardDetails>
           <h3>{coffee.title}</h3>
           <div>
-            <ItemsCounter />
+            <ItemsCounter
+              quantityItems={coffee.quantity}
+              incrementQuantity={handleIncrementQuantity}
+              decrementQuantity={handleDecrementQuantity}
+            />
 
-            <button>
+            <button onClick={handleRemoveItem}>
               <Trash />
               remover
             </button>

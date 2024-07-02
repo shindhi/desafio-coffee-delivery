@@ -55,6 +55,8 @@ export const CoffeeCardDetails = styled.div`
     align-items: center;
     gap: 0.4rem;
 
+    cursor: pointer;
+
     > svg {
       color: ${({ theme }) => theme['purple-400']};
     }
