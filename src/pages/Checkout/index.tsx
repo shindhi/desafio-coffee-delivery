@@ -24,8 +24,18 @@ import { CoffeeCard } from './components/CoffeeCard'
 
 import { CartContext } from '../../contexts/CartContext'
 
+const shippingPrice = 3.5
+const formatterPrice = new Intl.NumberFormat('pt-BR', {
+  style: 'currency',
+  currency: 'BRL',
+})
+
 export function Checkout() {
   const { cart } = useContext(CartContext)
+
+  const totalPriceItems = cart.reduce((acc, currentValue) => {
+    return acc + currentValue.price * currentValue.quantity
+  }, 0)
 
   return (
     <CheckoutContainer>
@@ -95,13 +105,17 @@ export function Checkout() {
 
           <SummaryOfValues>
             <div>
-              Total de itens <span>R$ 29,70</span>
+              Total de itens{' '}
+              <span>{formatterPrice.format(totalPriceItems)}</span>
             </div>
             <div>
-              Entrega <span>R$ 3,50</span>
+              Entrega <span>{formatterPrice.format(shippingPrice)}</span>
             </div>
             <div>
-              Total<span>R$ 33,20</span>
+              Total
+              <span>
+                {formatterPrice.format(shippingPrice + totalPriceItems)}
+              </span>
             </div>
           </SummaryOfValues>
 

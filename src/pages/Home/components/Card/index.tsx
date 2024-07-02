@@ -27,6 +27,11 @@ type CardProps = {
   coffee: CoffeeProps
 }
 
+const formatter = new Intl.NumberFormat('pt-BR', {
+  style: 'currency',
+  currency: 'BRL',
+})
+
 export function Card({ coffee }: CardProps) {
   const { addItem } = useContext(CartContext)
   const [quantityItems, setQuantityItems] = useState(1)
@@ -66,9 +71,7 @@ export function Card({ coffee }: CardProps) {
       <BuyContainer>
         <Price>
           <span>R$</span>{' '}
-          <span>
-            {coffee.price.toString().replace('.', ',').padEnd(4, '0')}
-          </span>
+          <span>{formatter.format(coffee.price).replace(/^(\D+)/, '')}</span>
         </Price>
 
         <ActionsWrapper>
