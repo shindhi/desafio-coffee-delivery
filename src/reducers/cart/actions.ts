@@ -36,14 +36,14 @@ export function removeItemAction(itemId: Item['id']) {
   } satisfies Actions
 }
 
-export function incremetItemAction(itemId: Item['id']) {
+export function incremetQuantityItemAction(itemId: Item['id']) {
   return {
     type: ActionTypes.INCREMET_ITEM,
     payload: { itemId },
   } satisfies Actions
 }
 
-export function decrementItemAction(itemId: Item['id']) {
+export function decrementQuantityItemAction(itemId: Item['id']) {
   return {
     type: ActionTypes.DECREMENT_ITEM,
     payload: { itemId },

@@ -22,7 +22,7 @@ export function cartReducer(state: CartState, action: Actions) {
       })
 
       return produce(state, (draft) => {
-        if (currentItemIndex < 0) {
+        if (currentItemIndex <= 0) {
           draft.cart.push(action.payload.newItem)
         } else {
           draft.cart[currentItemIndex].quantity +=
@@ -31,17 +31,35 @@ export function cartReducer(state: CartState, action: Actions) {
       })
     }
     case ActionTypes.REMOVE_ITEM:
-      return state
+      return produce(state, (draft) => {
+        const currentItemIndex = draft.cart.findIndex((item) => {
+          return item.id === action.payload.itemId
+        })
+
+        if (currentItemIndex >= 0) {
+          draft.cart.splice(currentItemIndex, 1)
+        }
+      })
     case ActionTypes.INCREMET_ITEM:
       return produce(state, (draft) => {
         const currentItemIndex = draft.cart.findIndex((item) => {
           return item.id === action.payload.itemId
         })
 
-        draft.cart[currentItemIndex].quantity += 1
+        if (currentItemIndex >= 0) {
+          draft.cart[currentItemIndex].quantity += 1
+        }
       })
     case ActionTypes.DECREMENT_ITEM:
-      return state
+      return produce(state, (draft) => {
+        const currentItemIndex = draft.cart.findIndex((item) => {
+          return item.id === action.payload.itemId
+        })
+
+        if (currentItemIndex >= 0) {
+          draft.cart[currentItemIndex].quantity -= 1
+        }
+      })
     default:
       return state
   }
