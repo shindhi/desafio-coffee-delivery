@@ -1,8 +1,10 @@
 import { ReactNode, createContext, useReducer } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import { Item, cartReducer } from '../reducers/cart/reducer'
+import { Item, NewOrder, Order, cartReducer } from '../reducers/cart/reducer'
 import {
   addItemAction,
+  checkoutCartAction,
   decrementQuantityItemAction,
   incremetQuantityItemAction,
   removeItemAction,
@@ -14,18 +16,24 @@ interface CartContextProviderProps {
 
 interface CartContextType {
   cart: Item[]
+  orders: Order[]
   addItem: (item: Item) => void
   removeItem: (itemId: Item['id']) => void
   incrementQuantityItem: (itemId: Item['id']) => void
   decrementQuantityItem: (itemId: Item['id']) => void
+  checkout: (order: NewOrder) => void
 }
 
 export const CartContext = createContext({} as CartContextType)
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [cartState, dispatch] = useReducer(cartReducer, { cart: [] })
+  const [cartState, dispatch] = useReducer(cartReducer, {
+    cart: [],
+    orders: [],
+  })
 
-  const { cart } = cartState
+  const { cart, orders } = cartState
+  const navigate = useNavigate()
 
   function addItem(item: Item) {
     dispatch(addItemAction(item))
@@ -43,6 +51,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     dispatch(decrementQuantityItemAction(itemId))
   }
 
+  function checkout(order: NewOrder) {
+    dispatch(checkoutCartAction(order, navigate))
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -51,6 +63,8 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         removeItem,
         incrementQuantityItem,
         decrementQuantityItem,
+        orders,
+        checkout,
       }}
     >
       {children}

@@ -1,10 +1,13 @@
-import { Item } from './reducer'
+import { NavigateFunction } from 'react-router-dom'
+
+import { Item, NewOrder } from './reducer'
 
 export enum ActionTypes {
   ADD_ITEM = 'ADD_ITEM',
   REMOVE_ITEM = 'REMOVE_ITEM',
   INCREMET_ITEM = 'INCREMET_ITEM',
   DECREMENT_ITEM = 'DECREMENT_ITEM',
+  CHECKOUT_CART = 'CHECKOUT_CART',
 }
 
 export type Actions =
@@ -18,6 +21,13 @@ export type Actions =
         | ActionTypes.INCREMET_ITEM
         | ActionTypes.DECREMENT_ITEM
       payload: { itemId: Item['id'] }
+    }
+  | {
+      type: ActionTypes.CHECKOUT_CART
+      payload: {
+        order: NewOrder
+        callback: NavigateFunction
+      }
     }
 
 export function addItemAction(newItem: Item) {
@@ -47,5 +57,18 @@ export function decrementQuantityItemAction(itemId: Item['id']) {
   return {
     type: ActionTypes.DECREMENT_ITEM,
     payload: { itemId },
+  } satisfies Actions
+}
+
+export function checkoutCartAction(
+  order: NewOrder,
+  callback: NavigateFunction,
+) {
+  return {
+    type: ActionTypes.CHECKOUT_CART,
+    payload: {
+      order,
+      callback,
+    },
   } satisfies Actions
 }
