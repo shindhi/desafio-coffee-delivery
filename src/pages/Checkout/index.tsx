@@ -1,4 +1,7 @@
-import { useContext } from 'react'
+import React, { useContext } from 'react'
+import * as zod from 'zod'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Bank,
   CreditCard,
@@ -16,13 +19,15 @@ import {
   CoffeeInput,
   TitleSection,
   CardContainer,
-  MethodPaymentsContainer,
   SummaryOfValues,
   ButtonConfirmOrder,
+  CardDeliveryDetails,
+  OptionPayment,
+  MethodPaymentsContainer,
+  AlertErrorMessage,
 } from './styles'
-import { CoffeeCard } from './components/CoffeeCard'
-
 import { CartContext } from '../../contexts/CartContext'
+import { CoffeeCard } from './components/CoffeeCard'
 
 const shippingPrice = 3.5
 const formatterPrice = new Intl.NumberFormat('pt-BR', {
@@ -30,16 +35,69 @@ const formatterPrice = new Intl.NumberFormat('pt-BR', {
   currency: 'BRL',
 })
 
+const cepMask = (value: string) => {
+  return value.replace(/\D/g, '').replace(/^(\d{5})(\d)/, '$1-$2')
+}
+
+const newOrder = zod.object({
+  zipCode: zod
+    .string()
+    .min(1, 'Informe o CEP')
+    .max(9, 'O CEP deve ter no máximo 8 caracteres.')
+    .regex(/^\d{5}-\d{3}$/, 'CEP inválido'),
+  street: zod.string().min(1, 'Informe o nome da rua'),
+  number: zod.number({ invalid_type_error: 'Informe o número' }),
+  addressComplement: zod.string(),
+  neighborhood: zod.string().min(1, 'Informe o bairro'),
+  city: zod.string().min(1, 'Informe a cidade'),
+  state: zod
+    .string()
+    .min(1, 'Informe o estado')
+    .max(2, 'O estado deve ter no máximo 2 caracteres'),
+  paymentMethod: zod.enum(['credit', 'debit', 'cash'], {
+    invalid_type_error: 'Informe um método de pagamento',
+  }),
+})
+
+export type OrderInfo = zod.infer<typeof newOrder>
+
 export function Checkout() {
-  const { cart } = useContext(CartContext)
+  const { cart, checkout } = useContext(CartContext)
 
   const totalPriceItems = cart.reduce((acc, currentValue) => {
     return acc + currentValue.price * currentValue.quantity
   }, 0)
 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<OrderInfo>({ resolver: zodResolver(newOrder) })
+  const selectedMethodPayment = watch('paymentMethod')
+
+  const handleOrderCheckout: SubmitHandler<OrderInfo> = (data) => {
+    if (cart.length === 0) {
+      return alert('É preciso ter pelo menos um item no carrinho')
+    }
+    checkout(data)
+  }
+
+  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = event.target
+
+    if (name === 'zipCode') {
+      const maskedValue = cepMask(value)
+      event.target.value = maskedValue
+    }
+  }
+
   return (
     <CheckoutContainer>
-      <CoffeeOrderWrapper>
+      <CoffeeOrderWrapper
+        id="order"
+        onSubmit={handleSubmit(handleOrderCheckout)}
+      >
         <TitleSection>Complete seu pedido</TitleSection>
 
         <CardContainer>
@@ -50,24 +108,81 @@ export function Checkout() {
             color="yellow-700"
           />
 
-          <form action="">
-            <CoffeeInput type="text" id="cep" placeholder="CEP" />
-            <CoffeeInput type="text" id="rua" placeholder="Rua" />
-            <CoffeeInput type="number" id="numero" placeholder="Número" />
+          <CardDeliveryDetails>
+            <div id="cep">
+              <CoffeeInput
+                placeholder="CEP"
+                maxLength={9}
+                type="string"
+                {...register('zipCode', {
+                  onChange: handleInputChange,
+                })}
+              />
+              {errors.zipCode && <span>{errors.zipCode.message}</span>}
+            </div>
+
+            <div id="street">
+              <CoffeeInput
+                type="text"
+                placeholder="Rua"
+                {...register('street')}
+              />
+              {errors.street && <span>{errors.street.message}</span>}
+            </div>
+
+            <div id="number">
+              <CoffeeInput
+                type="number"
+                placeholder="Número"
+                {...register('number', {
+                  valueAsNumber: true,
+                })}
+              />
+              {errors.number && <span>{errors.number.message}</span>}
+            </div>
+
             <InputOptionalWrapper
-              id="complemento-container"
-              data-optional="Opcional"
+              id="addressComplement"
+              data-optional="opcional"
             >
               <CoffeeInput
                 type="text"
-                id="complemento"
                 placeholder="Complemento"
+                {...register('addressComplement')}
               />
+              {errors.addressComplement && (
+                <span>{errors.addressComplement.message}</span>
+              )}
             </InputOptionalWrapper>
-            <CoffeeInput type="text" id="bairro" placeholder="Bairro" />
-            <CoffeeInput type="text" id="cidade" placeholder="Cidade" />
-            <CoffeeInput type="text" id="uf" placeholder="UF" />
-          </form>
+
+            <div id="neighborhood">
+              <CoffeeInput
+                type="text"
+                placeholder="Bairro"
+                {...register('neighborhood')}
+              />
+              {errors.neighborhood && (
+                <span>{errors.neighborhood.message}</span>
+              )}
+            </div>
+
+            <div id="city">
+              <CoffeeInput
+                type="text"
+                placeholder="Cidade"
+                {...register('city')}
+              />
+              {errors.city && <span>{errors.city.message}</span>}
+            </div>
+
+            <div id="uf">
+              <CoffeeInput
+                type="text"
+                placeholder="UF"
+                {...register('state')}
+              />
+            </div>
+          </CardDeliveryDetails>
         </CardContainer>
 
         <CardContainer>
@@ -79,19 +194,37 @@ export function Checkout() {
           />
 
           <MethodPaymentsContainer>
-            <button>
+            <OptionPayment selected={selectedMethodPayment === 'credit'}>
+              <input
+                type="radio"
+                value="credit"
+                {...register('paymentMethod')}
+              />
               <CreditCard />
               Cartão de crédito
-            </button>
-            <button>
+            </OptionPayment>
+
+            <OptionPayment selected={selectedMethodPayment === 'debit'}>
+              <input
+                type="radio"
+                value="debit"
+                {...register('paymentMethod')}
+              />
               <Bank />
               Cartão de débito
-            </button>
-            <button>
+            </OptionPayment>
+
+            <OptionPayment selected={selectedMethodPayment === 'cash'}>
+              <input type="radio" value="cash" {...register('paymentMethod')} />
               <Money />
               Dinheiro
-            </button>
+            </OptionPayment>
           </MethodPaymentsContainer>
+          {errors.paymentMethod && (
+            <AlertErrorMessage>
+              {errors.paymentMethod.message}
+            </AlertErrorMessage>
+          )}
         </CardContainer>
       </CoffeeOrderWrapper>
 
@@ -119,7 +252,9 @@ export function Checkout() {
             </div>
           </SummaryOfValues>
 
-          <ButtonConfirmOrder>Confirmar pedido</ButtonConfirmOrder>
+          <ButtonConfirmOrder type="submit" form="order">
+            Confirmar pedido
+          </ButtonConfirmOrder>
         </CardContainer>
       </CoffeeCardWrapper>
     </CheckoutContainer>

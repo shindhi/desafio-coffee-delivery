@@ -1,4 +1,4 @@
-import { styled } from 'styled-components'
+import { css, styled } from 'styled-components'
 
 export const CheckoutContainer = styled.div`
   margin-top: 4rem;
@@ -54,48 +54,54 @@ export const InputOptionalWrapper = styled.div`
   }
 `
 
-export const CoffeeOrderWrapper = styled.div`
-  form {
-    display: grid;
-    grid-template-columns: minmax(20rem, 1fr) minmax(27.6rem, 1fr) 6rem;
-    grid-template-rows: 4;
-    gap: 1.2rem;
+export const CoffeeOrderWrapper = styled.form``
 
-    input#cep {
-      grid-column: 1 / 2;
-      grid-row: 1 / 2;
-    }
+export const CardDeliveryDetails = styled.div`
+  display: grid;
+  grid-template-columns: minmax(20rem, 1fr) minmax(27.6rem, 1fr) 6rem;
+  grid-template-rows: repeat(4, 1fr);
+  gap: 1.6rem;
 
-    input#rua {
-      grid-column: 1 / 4;
-      grid-row: 2 / 3;
-    }
+  div#cep {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
 
-    input#numero {
-      grid-column: 1 / 2;
-      grid-row: 3 / 4;
-    }
+  div#street {
+    grid-column: 1 / 4;
+    grid-row: 2 / 3;
+  }
 
-    /* input complemento */
-    > div {
-      grid-column: 2 / 4;
-      grid-row: 3 / 4;
-    }
+  div#number {
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+  }
 
-    input#bairro {
-      grid-column: 1 / 2;
-      grid-row: 4 / 5;
-    }
+  /* input complemento */
+  > div {
+    grid-column: 2 / 4;
+    grid-row: 3 / 4;
+  }
 
-    input#cidade {
-      grid-column: 2 / 3;
-      grid-row: 4 / 5;
-    }
+  div#neighborhood {
+    grid-column: 1 / 2;
+    grid-row: 4 / 5;
+  }
 
-    input#uf {
-      grid-column: 3 / 4;
-      grid-row: 4 / 5;
-    }
+  div#city {
+    grid-column: 2 / 3;
+    grid-row: 4 / 5;
+  }
+
+  div#uf {
+    grid-column: 3 / 4;
+    grid-row: 4 / 5;
+  }
+
+  span {
+    font-size: 1.4rem;
+    padding-inline: 0.8rem;
+    color: red;
   }
 `
 
@@ -104,30 +110,52 @@ export const MethodPaymentsContainer = styled.div`
   grid-auto-flow: column;
   gap: 1.2rem;
   grid-template-columns: repeat(3, 1fr);
+`
 
-  button {
-    border: none;
-    background: ${({ theme }) => theme['base-600']};
-    padding: 1.6rem;
-    text-transform: uppercase;
-    font-size: 1.2rem;
+interface OptionPaymentProps {
+  selected: boolean
+}
 
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 1.2rem;
+export const OptionPayment = styled.label<OptionPaymentProps>`
+  padding: 1.6rem;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: ${({ theme }) => theme['base-600']};
+  color: ${({ theme }) => theme['base-300']};
+  text-transform: uppercase;
+  transition: all 0.2s;
+  font-size: 1.2rem;
 
-    cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.2rem;
 
-    svg {
-      color: ${({ theme }) => theme[`purple-400`]};
-      font-size: 1.6rem;
-    }
+  &:hover {
+    background: ${({ theme }) => theme['base-500']};
+  }
+
+  input {
+    display: none;
+  }
+
+  ${({ selected = true }) =>
+    selected &&
+    css`
+      background: ${({ theme }) => theme['purple-100']};
+      border: 1px solid ${({ theme }) => theme['purple-400']};
+    `};
+
+  svg {
+    color: ${({ theme }) => theme['purple-400']};
+    font-size: 1.6rem;
   }
 `
 
 export const CoffeeCardWrapper = styled.div`
+  width: 44.8rem;
+  max-width: 100%;
   border-radius: 6px 44px;
 
   > div {
@@ -177,4 +205,11 @@ export const ButtonConfirmOrder = styled.button`
   font-weight: 700;
 
   cursor: pointer;
+`
+
+export const AlertErrorMessage = styled.div`
+  font-size: 1.4rem;
+  font-weight: 400;
+  padding-inline: 0.8rem;
+  color: red;
 `
