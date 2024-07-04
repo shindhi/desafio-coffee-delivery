@@ -1,4 +1,7 @@
+import { useContext } from 'react'
 import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
+import { useParams } from 'react-router-dom'
+
 import successImg from '../../assets/successImg.svg'
 import {
   SuccessContainer,
@@ -7,8 +10,27 @@ import {
   Info,
   ItemInfo,
 } from './styles'
+import { CartContext } from '../../contexts/CartContext'
+
+const paymentMethods = {
+  credit: 'Cartão de crédito',
+  debit: 'Cartão de débito',
+  cash: 'Dinheiro',
+}
 
 export function Success() {
+  const { orderId } = useParams()
+  const { orders } = useContext(CartContext)
+
+  const currentOrderInfo = orders.find((order) => order.id === Number(orderId))
+
+  if (!currentOrderInfo?.id) {
+    return null
+  }
+
+  const { street, number, neighborhood, city, state, paymentMethod } =
+    currentOrderInfo
+
   return (
     <SuccessContainer>
       <h1>Uhu! Pedido confirmado</h1>
@@ -21,9 +43,12 @@ export function Success() {
                 <MapPin weight="fill" />
               </span>
               <div>
-                Entrega em <strong>Rua João Daniel Martinelli, 102</strong>
+                Entrega em{' '}
+                <strong>
+                  {street}, {number}
+                </strong>
                 <br />
-                Farrapos - Porto Alegre, RS
+                {neighborhood} - {city}, {state}
               </div>
             </ItemInfo>
 
@@ -45,11 +70,12 @@ export function Success() {
               <div>
                 Pagamento na entrega
                 <br />
-                <strong>Cartão de Crédito</strong>
+                <strong>{paymentMethods[paymentMethod]}</strong>
               </div>
             </ItemInfo>
           </InfoWrapper>
         </Info>
+
         <img src={successImg} alt="Imagem de sucesso" />
       </SuccessContent>
     </SuccessContainer>
