@@ -94,11 +94,16 @@ export const AddToCartButton = styled.button`
   padding: 0.8rem;
   background: ${({ theme }) => theme['purple-700']};
   border-radius: 0.6rem;
+  transition: 0.2s background;
 
   cursor: pointer;
 
   > svg {
     font-size: 2.2rem;
     color: ${({ theme }) => theme.white};
+  }
+
+  &:hover {
+    background: ${({ theme }) => theme['purple-400']};
   }
 `

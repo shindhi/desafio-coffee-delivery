@@ -42,23 +42,28 @@ export const CoffeeCardDetails = styled.div`
     flex-direction: row;
     gap: 0.8rem;
   }
+`
 
-  button {
-    border: none;
-    background: ${({ theme }) => theme['base-600']};
-    line-height: 0;
-    padding: 0.8rem;
-    border-radius: 6px;
-    text-transform: uppercase;
+export const RemoveItemButton = styled.button`
+  border: none;
+  background: ${({ theme }) => theme['base-600']};
+  line-height: 0;
+  padding: 0.8rem;
+  border-radius: 6px;
+  text-transform: uppercase;
 
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 
-    cursor: pointer;
+  cursor: pointer;
+  transition: 0.2s background;
 
-    > svg {
-      color: ${({ theme }) => theme['purple-400']};
-    }
+  &:hover {
+    background: ${({ theme }) => theme['base-500']};
+  }
+
+  > svg {
+    color: ${({ theme }) => theme['purple-400']};
   }
 `
