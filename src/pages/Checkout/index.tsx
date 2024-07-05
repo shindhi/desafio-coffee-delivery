@@ -92,6 +92,8 @@ export function Checkout() {
     }
   }
 
+  const confirmButtonIsDisabled = cart.length === 0
+
   return (
     <CheckoutContainer>
       <CoffeeOrderWrapper
@@ -232,6 +234,8 @@ export function Checkout() {
         <TitleSection>Cafés selecionados</TitleSection>
 
         <CardContainer>
+          {cart.length === 0 && <p>Carrinho vazio :( </p>}
+
           {cart.map((coffee) => {
             return <CoffeeCard key={coffee.id} coffee={coffee} />
           })}
@@ -252,7 +256,11 @@ export function Checkout() {
             </div>
           </SummaryOfValues>
 
-          <ButtonConfirmOrder type="submit" form="order">
+          <ButtonConfirmOrder
+            type="submit"
+            form="order"
+            disabled={confirmButtonIsDisabled}
+          >
             Confirmar pedido
           </ButtonConfirmOrder>
         </CardContainer>

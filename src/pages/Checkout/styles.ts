@@ -22,6 +22,13 @@ export const CardContainer = styled.div`
 
   display: grid;
   gap: 1.5rem;
+
+  > p {
+    text-align: center;
+    font-size: 1.8rem;
+    color: ${({ theme }) => theme['base-400']};
+    padding: 1.5rem;
+  }
 `
 
 export const CoffeeInput = styled.input`
@@ -33,6 +40,10 @@ export const CoffeeInput = styled.input`
   color: ${({ theme }) => theme['base-300']};
   font-size: 1.4rem;
   border: none;
+
+  &:focus {
+    outline: 1px solid ${({ theme }) => theme['yellow-700']};
+  }
 
   &::placeholder {
     color: ${({ theme }) => theme['base-400']};
@@ -207,8 +218,13 @@ export const ButtonConfirmOrder = styled.button`
   cursor: pointer;
   transition: 0.2s background;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background: ${({ theme }) => theme['yellow-700']};
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
   }
 `
 
