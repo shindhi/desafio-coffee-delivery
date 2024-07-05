@@ -205,6 +205,11 @@ export const ButtonConfirmOrder = styled.button`
   font-weight: 700;
 
   cursor: pointer;
+  transition: 0.2s background;
+
+  &:hover {
+    background: ${({ theme }) => theme['yellow-700']};
+  }
 `
 
 export const AlertErrorMessage = styled.div`

@@ -6,6 +6,7 @@ import {
   CoffeeCardContainer,
   CoffeeCardInfo,
   CoffeeCardDetails,
+  RemoveItemButton,
 } from './styles'
 import { CartContext } from '../../../../contexts/CartContext'
 
@@ -51,10 +52,10 @@ export function CoffeeCard({ coffee }: CoffeeCardProps) {
               decrementQuantity={handleDecrementQuantity}
             />
 
-            <button onClick={handleRemoveItem}>
+            <RemoveItemButton onClick={handleRemoveItem}>
               <Trash />
               remover
-            </button>
+            </RemoveItemButton>
           </div>
         </CoffeeCardDetails>
       </CoffeeCardInfo>
