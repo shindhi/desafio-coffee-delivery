@@ -12,9 +12,11 @@ export function ItemsCounter({
   incrementQuantity,
   decrementQuantity,
 }: ItemsCounterProps) {
+  const isDisabled = quantityItems === 1
+
   return (
     <ItemsCounterContainer>
-      <button onClick={decrementQuantity}>
+      <button onClick={decrementQuantity} disabled={isDisabled}>
         <Minus weight="bold" />
       </button>
       <span>{quantityItems}</span>

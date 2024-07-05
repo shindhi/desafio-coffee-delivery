@@ -11,22 +11,30 @@ export const ItemsCounterContainer = styled.div`
   align-items: center;
   gap: 0.4rem;
 
-  > button {
+  button {
     border: none;
     background: transparent;
     padding: 1.2rem 0.8rem;
     line-height: 0;
 
     cursor: pointer;
+    transition: 0.2s color;
 
-    > svg {
-      color: ${({ theme }) => theme[`purple-400`]};
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &:hover {
+      svg {
+        color: ${({ theme }) => theme['purple-700']};
+      }
+    }
+
+    svg {
+      color: ${({ theme }) => theme['purple-400']};
       font-size: 1.4rem;
     }
-  }
-
-  button:disabled {
-    opacity: 0.5;
   }
 
   > span {
