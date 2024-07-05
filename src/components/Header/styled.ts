@@ -1,6 +1,6 @@
 import { LinkHTMLAttributes } from 'react'
-import { NavLink } from 'react-router-dom'
-import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+import styled, { css } from 'styled-components'
 
 export const HeaderContainer = styled.header`
   width: 100%;
@@ -11,7 +11,7 @@ export const HeaderContainer = styled.header`
   align-items: center;
 `
 
-export const ActionsWrapper = styled.div`
+export const ActionsWrapper = styled.aside`
   display: flex;
   gap: 1.2rem;
 `
@@ -20,7 +20,7 @@ interface CartLinkProps extends LinkHTMLAttributes<HTMLLinkElement> {
   itemsquantity: number
 }
 
-export const CartLink = styled(NavLink)<CartLinkProps>`
+export const CartLink = styled(Link)<CartLinkProps>`
   text-decoration: none;
   background: ${({ theme }) => theme['yellow-100']};
   color: ${({ theme }) => theme['yellow-700']};
@@ -35,26 +35,30 @@ export const CartLink = styled(NavLink)<CartLinkProps>`
 
   ${({ itemsquantity, theme }) =>
     itemsquantity > 0 &&
-    `
-  &::after {
-    content: '${itemsquantity}';
-    position: absolute;
-    top: calc(1rem - 2rem);
-    right: calc(1rem - 2rem);
-    width: 2rem;
-    height: 2rem;
-    background: ${theme['yellow-700']};
-    color: ${theme.white};
-    font-size: 1.2rem;
-    font-weight: 700;
-    border-radius: 50%;
-    line-height: 0;
+    css`
+      &::after {
+        content: '${itemsquantity}';
+        position: absolute;
+        top: calc(1rem - 2rem);
+        right: calc(1rem - 2rem);
+        width: 2rem;
+        height: 2rem;
+        background: ${theme['yellow-700']};
+        color: ${theme.white};
+        font-size: 1.2rem;
+        font-weight: 700;
+        border-radius: 50%;
+        line-height: 0;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    `}
+
+  &[aria-disabled='true'] {
+    pointer-events: none;
   }
-  `}
 
   > svg {
     font-size: 2.2rem;
