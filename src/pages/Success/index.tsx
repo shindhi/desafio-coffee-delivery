@@ -11,6 +11,7 @@ import {
   ItemInfo,
 } from './styles'
 import { CartContext } from '../../contexts/CartContext'
+import { useTheme } from 'styled-components'
 
 const paymentMethods = {
   credit: 'Cartão de crédito',
@@ -21,6 +22,8 @@ const paymentMethods = {
 export function Success() {
   const { orderId } = useParams()
   const { orders } = useContext(CartContext)
+
+  const theme = useTheme()
 
   const currentOrderInfo = orders.find((order) => order.id === Number(orderId))
 
@@ -39,7 +42,7 @@ export function Success() {
         <Info>
           <InfoWrapper>
             <ItemInfo>
-              <span>
+              <span style={{ background: theme['purple-400'] }}>
                 <MapPin weight="fill" />
               </span>
               <div>
@@ -53,7 +56,7 @@ export function Success() {
             </ItemInfo>
 
             <ItemInfo>
-              <span>
+              <span style={{ background: theme['yellow-400'] }}>
                 <Timer weight="fill" />
               </span>
               <div>
@@ -64,7 +67,7 @@ export function Success() {
             </ItemInfo>
 
             <ItemInfo>
-              <span>
+              <span style={{ background: theme['yellow-700'] }}>
                 <CurrencyDollar weight="fill" />
               </span>
               <div>

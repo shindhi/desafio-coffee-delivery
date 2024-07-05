@@ -1,3 +1,4 @@
+import { produceWithPatches } from 'immer'
 import { styled } from 'styled-components'
 
 export const SuccessContainer = styled.div`
@@ -56,7 +57,6 @@ export const ItemInfo = styled.div`
   gap: 1.2rem;
 
   span {
-    background: ${({ theme }) => theme['purple-400']};
     color: ${({ theme }) => theme.white};
     line-height: 0;
     border-radius: 50%;
